@@ -49,18 +49,57 @@ public class StudentAPP {
 	System.out.println("------------------------------------------------------------");
 	System.out.println("Removing student details based on id");	
 	s.removeById(4);
-  }
   
-   
   
-  catch (HibernateException e) {
-		 e.printStackTrace();
-	}
-  catch (Exception e) {
-	 e.printStackTrace();
-	}
+  course c1 = new course();
+  c1.setCourseName("Java Programming");
+  c1.setCourseCode("CS101");
 
-	}
+  course c2 = new course();
+  c2.setCourseName("Database Management");
+  c2.setCourseCode("DB101");
+
+  course c3 = new  course();
+  c3.setCourseName("Web Development");
+  c3.setCourseCode("WD101");
+
+  courseDAO courseDAO = new courseDAO(em);
+
+  // Adding courses
+  courseDAO.createCourse(c1);
+  courseDAO.createCourse(c2);
+  courseDAO.createCourse(c3);
+
+  System.out.println("Course details successfully added");
+  System.out.println("----------------------------------------------------------------");
+
+  // Updating course details
+  int newCourseId = 3;
+  String newCourseName = "Advanced Web Development";
+  String newCourseCode = "AWD101";
+  courseDAO.updateCourse(newCourseId, newCourseName, newCourseCode);
+  System.out.println("------------------------------------------------------------");
+
+  // Retrieving course details based on ID
+  System.out.println("Course details based on ID");
+  Optional<course> courseDetails = courseDAO.getById(2);
+  System.out.println(courseDetails);
+  System.out.println("------------------------------------------------------------");
+
+  // Retrieving all courses
+  System.out.println("All course details");
+  List<course> allCourses = courseDAO.getAll();
+  System.out.println(allCourses);
+  System.out.println("------------------------------------------------------------");
+
+  // Removing a course by ID
+  System.out.println("Removing 1st course based on ID");
+  System.out.println("Data removed successfully");
+  courseDAO.removeById(1);
 }
 
-
+catch (HibernateException e) {
+	 e.printStackTrace();
+}
+}
+}
